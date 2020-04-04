@@ -2,7 +2,7 @@ const nanoexpress = require('nanoexpress');
 const cors = require('cors');
 
 const app = nanoexpress();
-app.options('/v1/users/:userId', cors(), () => {});
+app.options('/v1/users/:userId', cors());
 
 app.get('/v1/users/:userId', cors(), async (req, res) => {
     console.log("getUser handler starts");

@@ -7,6 +7,7 @@
   "main": "nano-server.js",
   "scripts": {
     "nano": "nodemon nano-server.js",
+    "cors": "nodemon nano-cors.js",
     "express": "nodemon express-server.js"
   },
   "dependencies": {
