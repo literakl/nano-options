@@ -1,0 +1,30 @@
+{
+  "name": "nano-options",
+  "version": "2.0.0",
+  "description": "test preflight",
+  "author": "Leos Literak",
+  "license": "TBD",
+  "main": "nano-server.js",
+  "scripts": {
+    "nano": "nodemon nano-server.js",
+    "express": "nodemon express-server.js"
+  },
+  "dependencies": {
+    "ajv": "^6.12.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nanoexpress": "^1.1.18"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules/*"
+    ],
+    "watch": [
+      "src/**/*",
+      "src/server.js"
+    ]
+  }
+}
