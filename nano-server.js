@@ -1,30 +1,60 @@
 const nanoexpress = require('nanoexpress');
 const cors = require('cors');
+const auth = require('./authenticate');
 
 const app = nanoexpress();
 app.options('/v1/users/:userId', cors());
 
 app.get('/slow', cors(), async (req, res) => {
     console.log("slow handler starts");
-    function myFunc(arg) {
-        console.log(`arg was => ${arg}`);
-    }
-    setTimeout(myFunc, 1500, 'funky');
-    console.log("slow resumed");
-
-    const response = {
-        api: '1.0',
-        status: 'OK'
-    };
-    res.status(200);
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.send(response);
+    const response = prepareResponse(res);
+    setTimeout(() => res.send(response), 2000);
     return res;
 });
 
 app.get('/v1/users/:userId', cors(), async (req, res) => {
     console.log("getUser handler starts");
+    const response = prepareResponse(res);
+    res.send(response);
+    return res;
+});
+
+app.get('/v1/polls/', async (req, res) => {
+    console.log("getPolls handler starts");
+    const response = prepareResponse(res);
+    res.send(response);
+    return res;
+});
+
+app.get('/bff/polls/last', auth.optional, async (req, res) => {
+    console.log("getLastPoll handler starts");
+    const response = prepareResponse(res);
+    res.send(response);
+    return res;
+});
+
+app.get('/bff/polls/:slug', auth.optional, async (req, res) => {
+    console.log("getPoll handler starts");
+    const response = prepareResponse(res);
+    res.send(response);
+    return res;
+})
+
+app.get('/bff/polls/:pollId/votes', async (req, res) => {
+    console.log("getVotes handler starts");
+    const response = prepareResponse(res);
+    res.send(response);
+    return res;
+});
+
+app.get('/bff/polls/:pollId/votes', async (req, res) => {
+    console.log("getVotes handler starts");
+    const response = prepareResponse(res);
+    res.send(response);
+    return res;
+})
+
+function prepareResponse(res) {
     const response = {
         api: '1.0',
         status: 'OK'
@@ -32,9 +62,8 @@ app.get('/v1/users/:userId', cors(), async (req, res) => {
     res.status(200);
     res.setHeader("Content-Type", "application/json");
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.send(response);
-    return res;
-});
+    return response;
+}
 
 app.setErrorHandler(
     (err, req, res) => {
