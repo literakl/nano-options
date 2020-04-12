@@ -7,8 +7,8 @@ const API = "http://localhost:3000/v1", BFF = "http://localhost:3000/bff";
 
 describe("user accounts", () => {
     test('create user', async () => {
-        let response = await axios.get(`${API}/users/1234`);
-        // let response = await axios.get(`${API}/users/1234`, getAuthHeader()); // TODO error with Authorization header
+        // let response = await axios.get(`${API}/users/1234`);
+        let response = await axios.get(`${API}/users/1234`, getAuthHeader()); // TODO error with Authorization header
         expect(response.data.success).toBeTruthy();
         expect(response.data.data).toBeDefined();
         let profile = response.data.data;
@@ -17,11 +17,9 @@ describe("user accounts", () => {
     });
 });
 
-function getAuthHeader(jwt) {
+function getAuthHeader() {
     const config = { headers: { } };
-    if (jwt) {
-        config.headers.Authorization = "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxZTQwdjBiMWo1Iiwibmlja25hbWUiOiJsaXRlcmFrbCIsInB3ZFRpbWVzdGFtcCI6IjIwMjAtMDMtMjJUMTE6MTA6NDkuNDg2WiIsInJvbGVzIjpbImFkbWluOnBvbGwiXSwiaWF0IjoxNTg2NjkwNzc2LCJleHAiOjE1ODkzNjkxNzZ9.N5MfpZ9i9Sjv-izdYItR4gXCmzVkqkuVcVSEL_6Q89c";
-    }
+    config.headers.Authorization = "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxZTQwdjBiMWo1Iiwibmlja25hbWUiOiJsaXRlcmFrbCIsInB3ZFRpbWVzdGFtcCI6IjIwMjAtMDMtMjJUMTE6MTA6NDkuNDg2WiIsInJvbGVzIjpbImFkbWluOnBvbGwiXSwiaWF0IjoxNTg2NjkwNzc2LCJleHAiOjE1ODkzNjkxNzZ9.N5MfpZ9i9Sjv-izdYItR4gXCmzVkqkuVcVSEL_6Q89c";
     return config;
 }
 

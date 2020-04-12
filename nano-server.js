@@ -12,7 +12,7 @@ app.get('/slow', cors(), async (req, res) => {
     return res;
 });
 
-app.get('/v1/users/:userId', cors(), async (req, res) => {
+app.get('/v1/users/:userId', auth.optional, async (req, res) => {
     console.log("getUser handler starts");
     const response = createDefaultResponse(res);
     res.send(response);
