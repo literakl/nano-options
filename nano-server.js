@@ -3,6 +3,15 @@ const cors = require('cors');
 const auth = require('./authenticate');
 
 const app = nanoexpress();
+
+function logRequest(req, res, cb) {
+    console.log("req = ", req);
+    console.log("res = ", res);
+    cb();
+}
+
+app.use(logRequest);
+
 app.options('/v1/users/:userId', cors());
 
 app.get('/slow', cors(), async (req, res) => {
@@ -12,7 +21,7 @@ app.get('/slow', cors(), async (req, res) => {
     return res;
 });
 
-app.get('/v1/users/:userId', auth.optional, async (req, res) => {
+app.get('/v1/users/:userId', cors(), auth.optional, async (req, res) => {
     console.log("getUser handler starts");
     const response = createDefaultResponse(res);
     res.send(response);
