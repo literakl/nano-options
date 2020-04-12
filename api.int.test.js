@@ -23,6 +23,10 @@ function getAuthHeader() {
     return config;
 }
 
+beforeEach(() => {
+    jest.setTimeout(10000);
+});
+
 beforeAll(() => {
     app.listen(3000, '0.0.0.0')
         .then(r => logger.info("Server started"));
