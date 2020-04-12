@@ -13,7 +13,7 @@ function withRole(role) {
 }
 
 const corsPerRoute = corsMiddleware({
-    origin: ['http://localhost:8080', 'https://www.mezinamiridici.cz'],
+    origin: ['http://localhost', 'https://www.mezinamiridici.cz'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     // preflightContinue: false,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
