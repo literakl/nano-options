@@ -4,7 +4,7 @@ const app = require('./nano-server');
 const API = "http://localhost:3000/v1", BFF = "http://localhost:3000/bff";
 
 describe("user accounts", () => {
-    test('get user incorrect', async () => {
+    test.skip('get user incorrect', async () => {
         let response = await got(`${BFF}/polls/1234`, { headers: getAuthHeader() }).json();
         expect(response.success).toBeTruthy();
         expect(response.data).toBeDefined();
