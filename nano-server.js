@@ -6,24 +6,23 @@ const app = nanoexpress();
 
 function logRequest(req, res, cb) {
     console.log("req = ", req);
-    console.log("res = ", res);
     cb();
 }
 
-app.use(logRequest);
+// app.use(logRequest);
 
 app.options('/v1/users/:userId', cors());
 
 app.get('/slow', cors(), async (req, res) => {
     console.log("slow handler starts");
-    const response = createDefaultResponse(res);
+    const response = createUserResponse(res);
     setTimeout(() => res.send(response), 2000);
     return res;
 });
 
 app.get('/v1/users/:userId', cors(), auth.optional, async (req, res) => {
     console.log("getUser handler starts");
-    const response = createDefaultResponse(res);
+    const response = createUserResponse(res);
     res.send(response);
     return res;
 });
@@ -67,6 +66,24 @@ function createDefaultResponse(res) {
     const response = {
         api: '1.0',
         status: 'OK'
+    };
+    res.status(200);
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    return response;
+}
+
+function createUserResponse(res) {
+    const response = {
+        success: true,
+        data: {
+            bio: {
+                nickname: "leos"
+            },
+            auth: {
+                email: "leos@email.bud"
+            }
+        }
     };
     res.status(200);
     res.setHeader("Content-Type", "application/json");

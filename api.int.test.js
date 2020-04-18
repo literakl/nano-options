@@ -1,19 +1,24 @@
-const axios = require('axios').default;
-axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
-axios.defaults.headers.patch['Content-Type'] = 'application/json; charset=utf-8';
+const got = require("got");
 const logger = require("./logging");
 const app = require('./nano-server');
 const API = "http://localhost:3000/v1", BFF = "http://localhost:3000/bff";
 
 describe("user accounts", () => {
-    test('create user', async () => {
-        // let response = await axios.get(`${API}/users/1234`);
-        let response = await axios.get(`${API}/users/1234`, getAuthHeader()); // TODO error with Authorization header
-        expect(response.data.success).toBeTruthy();
-        expect(response.data.data).toBeDefined();
-        let profile = response.data.data;
-        expect(profile.bio.nickname).toMatch("leos");
-        expect(profile.auth.email).toMatch("leos@email.bud");
+    test('get user incorrect', async () => {
+        let response = await got(`${BFF}/polls/1234`, { headers: getAuthHeader() }).json();
+        expect(response.success).toBeTruthy();
+        expect(response.data).toBeDefined();
+        let profile = response.data;
+        expect(profile.bio.nickname).toBe("leos");
+        expect(profile.auth.email).toBe("leos@email.bud");
+    });
+    test('get user correct', async () => {
+        let response = await got(`${API}/users/1234`, { headers: getAuthHeader() }).json();
+        expect(response.success).toBeTruthy();
+        expect(response.data).toBeDefined();
+        let profile = response.data;
+        expect(profile.bio.nickname).toBe("leos");
+        expect(profile.auth.email).toBe("leos@email.bud");
     });
 });
 

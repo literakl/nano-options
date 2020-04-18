@@ -1,5 +1,5 @@
 const { createLogger, format, transports } = require('winston');
-const { combine, timestamp, label, prettyPrint } = format;
+const { combine, timestamp, prettyPrint } = format;
 
 let logger;
 
@@ -36,6 +36,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 logger.on('finish', function (info) {
+    console.log("Is it ever called?")
     // All `info` log messages has now been logged
 });
 
