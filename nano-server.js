@@ -1,17 +1,13 @@
 const nanoexpress = require('nanoexpress');
 const cors = require('cors');
 const auth = require('./authenticate');
+const {createUserResponse, createDefaultResponse} = require("./responses");
 
 const app = nanoexpress();
 
-function logRequest(req, res, cb) {
-    console.log("req = ", req);
-    cb();
-}
-
-// app.use(logRequest);
-
 app.options('/v1/users/:userId', cors());
+
+app.options('/v1/polls/:pollId', cors(), () => {});
 
 app.get('/slow', cors(), async (req, res) => {
     console.log("slow handler starts");
@@ -62,35 +58,6 @@ app.get('/bff/polls/:pollId/votes', async (req, res) => {
     return res;
 })
 
-function createDefaultResponse(res) {
-    const response = {
-        api: '1.0',
-        status: 'OK'
-    };
-    res.status(200);
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    return response;
-}
-
-function createUserResponse(res) {
-    const response = {
-        success: true,
-        data: {
-            bio: {
-                nickname: "leos"
-            },
-            auth: {
-                email: "leos@email.bud"
-            }
-        }
-    };
-    res.status(200);
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    return response;
-}
-
 app.setErrorHandler(
     (err, req, res) => {
         console.log("ERROR", err);
@@ -105,6 +72,13 @@ app.setErrorHandler(
 app.setNotFoundHandler((res, req) => {
     return res.send({ code: 404, message: 'You entered wrong url' });
 });
+
+function logRequest(req, res, cb) {
+    console.log("req = ", req);
+    cb();
+}
+
+// app.use(logRequest);
 
 module.exports = app;
 

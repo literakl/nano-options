@@ -8,7 +8,7 @@
   "scripts": {
     "nano": "nodemon start-nano.js",
     "cors": "nodemon nano-cors.js",
-    "express": "nodemon express-server.js",
+    "express": "nodemon start-express.js",
     "test": "jest --config jest.config.js"
   },
   "dependencies": {
@@ -19,7 +19,7 @@
     "got": "^10.7.0",
     "jest": "^25.3.0",
     "jwt-decode": "^2.2.0",
-    "nanoexpress": "^1.1.18",
+    "nanoexpress": "^2.0.1",
     "winston": "^3.2.1"
   },
   "devDependencies": {
