@@ -29,7 +29,7 @@ curl -v -X options http://127.0.0.1:3000/v1/users/1234
  */
 test('cors only', async (done) => {
     let response = await got(`${API}/users/1234`, { method: "OPTIONS" });
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(204);
 /*
 GotError: Parse Error: Duplicate Content-Length
     at onError (node_modules\got\dist\source\request-as-event-emitter.js:140:29)
