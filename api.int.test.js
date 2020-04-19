@@ -1,7 +1,7 @@
 const got = require("got");
 const logger = require("./logging");
-// const {app, type} = require('./nano-server');
-const {app, type} = require('./express-server');
+const {app, type} = require('./nano-server');
+// const {app, type} = require('./express-server');
 const API = "http://localhost:3000/v1", BFF = "http://localhost:3000/bff";
 
 test('get user', async (done) => {
