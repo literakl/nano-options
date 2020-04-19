@@ -21,3 +21,5 @@ app.get('/v1/users/:userId', cors(), async (req, res) => {
     res.send(response);
     return res;
 });
+
+module.exports = app;
