@@ -1,6 +1,7 @@
 const got = require("got");
 const logger = require("./logging");
-const app = require('./nano-server');
+// const {app, type} = require('./nano-server');
+const {app, type} = require('./express-server');
 const API = "http://localhost:3000/v1", BFF = "http://localhost:3000/bff";
 
 test('get user', async (done) => {
@@ -19,7 +20,7 @@ curl -v -X options http://127.0.0.1:3000/v1/polls/1234
  */
 test('cors empty body', async (done) => {
     let response = await got(`${API}/polls/1234`, {method: "OPTIONS"});
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(204);
     done();
 });
 
@@ -60,12 +61,22 @@ beforeEach(() => {
     jest.setTimeout(10000);
 });
 
+let instance;
 beforeAll(() => {
-    app.listen(3000, '0.0.0.0')
-        .then(r => logger.info("Server started"));
+    if (type === "express") {
+        instance = app.listen(3000, () => console.log("Server started"));
+    } else {
+        app.listen(3000, '0.0.0.0')
+            .then(r => logger.info("Server started"));
+    }
 });
 
 afterAll(() => {
-    if (app.close())
+    if (type === "express") {
+        instance.close();
         logger.info("Server stopped");
+    } else {
+        if (app.close())
+            logger.info("Server stopped");
+    }
 });

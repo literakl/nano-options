@@ -80,5 +80,5 @@ function logRequest(req, res, cb) {
 
 // app.use(logRequest);
 
-module.exports = app;
-
+module.exports.app = app;
+module.exports.type = "nano";
